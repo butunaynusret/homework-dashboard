@@ -119,9 +119,10 @@ The system includes intelligent 3-tier session management:
 
 ### Manual Operations
 1. **Access Web Interface**: Visit your Vercel app URL
-2. **Fetch Homework**: Click "Fetch Homework" to manually check for new assignments
-3. **Edit Status**: Click "Edit Status" to view and update homework completion status
-4. **Generate Report**: Click "Generate Report" to create and publish HTML report
+2. **Refresh All**: Click "Refresh All Data & Report" for complete refresh (fetch + generate report)
+3. **Fetch Homework**: Click "Fetch Homework Only" to manually check for new assignments only
+4. **Edit Status**: Click "Edit Status" to view and update homework completion status  
+5. **Generate Report**: Click "Generate Report" to create and publish HTML report from current data
 
 ## 📁 File Structure in Repository
 

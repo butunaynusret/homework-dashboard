@@ -122,6 +122,32 @@
             box-shadow: 0 8px 20px rgba(72, 187, 120, 0.4);
         }
         
+        .btn-refresh-all {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 1.1em;
+            padding: 15px 30px;
+            font-weight: 700;
+            position: relative;
+        }
+        
+        .btn-refresh-all:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.5);
+        }
+        
+        .btn-refresh-all::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            border-radius: inherit;
+            pointer-events: none;
+        }
+        
         .btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
@@ -254,14 +280,17 @@
         <div class="content">
             <div class="action-section">
                 <h2 class="action-title">
-                    🔄 Fetch New Homework
+                    🔄 Quick Actions
                 </h2>
                 <p class="action-description">
-                    Fetch the latest homework assignments from the school system. This runs automatically daily at 8:00 AM, but you can also trigger it manually.
+                    Quick actions for homework management. The "Refresh All" button will fetch new homework data and generate a fresh HTML report in one click.
                 </p>
                 <div class="button-group">
+                    <button class="btn btn-refresh-all" onclick="refreshAll()" id="refreshAllBtn">
+                        <span>🔄</span> Refresh All Data & Report
+                    </button>
                     <button class="btn btn-primary" onclick="fetchHomework()" id="fetchBtn">
-                        <span>📥</span> Fetch Homework
+                        <span>📥</span> Fetch Homework Only
                     </button>
                 </div>
             </div>
@@ -334,7 +363,8 @@
                 btn.disabled = false;
                 // Reset to original content based on button
                 const originalContent = {
-                    fetchBtn: '<span>📥</span> Fetch Homework',
+                    refreshAllBtn: '<span>🔄</span> Refresh All Data & Report',
+                    fetchBtn: '<span>📥</span> Fetch Homework Only',
                     editBtn: '<span>📝</span> Edit Status',
                     generateBtn: '<span>📊</span> Generate Report',
                     saveBtn: '<span>💾</span> Save Changes'
@@ -499,6 +529,77 @@
                 showMessage(`❌ Error: ${error.message}`, 'error');
             } finally {
                 setButtonLoading('generateBtn', false);
+            }
+        }
+        
+        async function refreshAll() {
+            setButtonLoading('refreshAllBtn', true);
+            showMessage('🔄 Starting complete refresh...', 'info');
+            
+            try {
+                // Step 1: Fetch homework data
+                showMessage('📥 Step 1/2: Fetching homework data...', 'info');
+                
+                const fetchResponse = await fetch('/api/fetch_homework', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const fetchResult = await fetchResponse.json();
+                
+                if (!fetchResult.success) {
+                    throw new Error(`Homework fetch failed: ${fetchResult.error}`);
+                }
+                
+                // Step 2: Generate HTML report
+                showMessage('📊 Step 2/2: Generating HTML report...', 'info');
+                
+                const htmlResponse = await fetch('/api/generate_html', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const htmlResult = await htmlResponse.json();
+                
+                if (!htmlResult.success) {
+                    throw new Error(`HTML generation failed: ${htmlResult.error}`);
+                }
+                
+                // Success - show results
+                const successMsg = `✅ Complete refresh successful!
+📊 ${fetchResult.message}
+📄 HTML report generated and published`;
+                
+                showMessage(successMsg, 'success');
+                
+                // Update view report button
+                const viewBtn = document.getElementById('viewReportBtn');
+                viewBtn.href = htmlResult.url;
+                viewBtn.style.display = 'inline-flex';
+                
+                // Also show a direct link in the message area
+                setTimeout(() => {
+                    const statusDiv = document.getElementById('statusMessage');
+                    statusDiv.innerHTML = `
+                        <div class="status-message status-success">
+                            ✅ Complete refresh successful!<br>
+                            📊 ${fetchResult.message}<br>
+                            📄 HTML report generated and published<br><br>
+                            <a href="${htmlResult.url}" target="_blank" style="color: #155724; font-weight: bold; text-decoration: underline;">
+                                🌐 View Generated Report
+                            </a>
+                        </div>
+                    `;
+                }, 1000);
+                
+            } catch (error) {
+                showMessage(`❌ Refresh failed: ${error.message}`, 'error');
+            } finally {
+                setButtonLoading('refreshAllBtn', false);
             }
         }
     </script>

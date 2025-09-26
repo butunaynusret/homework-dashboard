@@ -89,9 +89,11 @@ For a fully automated solution with web interface and daily automation:
 - **No Server Maintenance**: Fully serverless on Vercel
 
 ### 📱 Web Dashboard
-- View all homework assignments
-- Edit status (Done, In Progress, Pending)
-- Generate beautiful HTML reports
+- **One-Click Refresh**: Complete data refresh and report generation
+- View all homework assignments in interactive table
+- Edit status (Done, In Progress, Pending) with dropdown menus
+- Generate beautiful HTML reports on demand
+- Manual homework fetching when needed
 - Automated daily homework fetching
 
 ### 🔧 Setup

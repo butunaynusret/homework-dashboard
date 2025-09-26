@@ -31,7 +31,7 @@ def fetch_homework_data():
     }
     
     cookies = {
-        'PHPSESSID': 'kfvqm9f7b4mck7iejuu7u6a4e2'
+        'PHPSESSID': ''
     }
     
     try:
@@ -72,7 +72,7 @@ def fetch_homework_detail(homework_id):
     }
     
     cookies = {
-        'PHPSESSID': 'kfvqm9f7b4mck7iejuu7u6a4e2'
+        'PHPSESSID': ''
     }
     
     try:

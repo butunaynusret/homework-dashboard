@@ -13,6 +13,8 @@
   "env": {
     "GITHUB_TOKEN": "@github_token",
     "GITHUB_REPO": "@github_repo",
+    "SCHOOL_USERNAME": "@school_username",
+    "SCHOOL_PASSWORD": "@school_password",
     "PHPSESSID": "@phpsessid"
   },
   "rewrites": [

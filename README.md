@@ -81,6 +81,8 @@ For a fully automated solution with web interface and daily automation:
 
 ### 🚀 Features
 - **Daily Auto-fetch**: Automatically checks for new homework at 8:00 AM
+- **Automatic Login**: Uses your school credentials to authenticate automatically
+- **Smart Session Management**: 3-tier session handling with automatic retry
 - **Web Interface**: Edit homework status from any device
 - **One-Click Reports**: Generate HTML reports with a button click
 - **GitHub Storage**: Persistent data storage in your repository
@@ -97,7 +99,9 @@ See **[VERCEL_SETUP.md](VERCEL_SETUP.md)** for complete deployment instructions.
 
 Quick setup:
 1. Deploy to Vercel from your GitHub repository
-2. Set environment variables (GitHub token, repo name, session ID)
+2. Set environment variables:
+   - `GITHUB_TOKEN` and `GITHUB_REPO` (required)
+   - `SCHOOL_USERNAME` and `SCHOOL_PASSWORD` (recommended for automatic login)
 3. Access your web dashboard at your Vercel URL
 
 ## Files

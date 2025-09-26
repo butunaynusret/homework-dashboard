@@ -35,12 +35,21 @@ This guide will help you deploy your homework automation system to Vercel with a
 
 2. **Configure Environment Variables**:
    - In Vercel project settings, go to "Environment Variables"
-   - Add these variables:
+   - Add these required variables:
      ```
      GITHUB_TOKEN = your_github_personal_access_token
      GITHUB_REPO = your_username/your_repo_name
-     PHPSESSID = your_school_session_id
      ```
+   - **Recommended**: Add your school login credentials for automatic authentication:
+     ```
+     SCHOOL_USERNAME = your_school_username
+     SCHOOL_PASSWORD = your_school_password
+     ```
+   - **Optional**: Add a manual session ID as fallback:
+     ```
+     PHPSESSID = your_valid_session_id_from_browser
+     ```
+   - **Note**: With login credentials, the system will automatically authenticate and get fresh sessions!
 
 3. **Deploy**:
    - Vercel will automatically deploy your app
@@ -49,19 +58,56 @@ This guide will help you deploy your homework automation system to Vercel with a
      - API endpoints at `/api/*`
      - Cron job that runs daily at 8:00 AM
 
-### Step 3: Update Session ID
+### Step 3: Authentication Configuration
 
-The `PHPSESSID` cookie expires periodically. To update it:
+**Option A: Automatic Login (Recommended)**
 
-1. **Get new session ID**:
-   - Open browser developer tools
-   - Go to your school homework system
-   - Check cookies for `PHPSESSID` value
+1. **Get Your School Credentials**:
+   - Use the same username and password you use to log into the school system
+   - Usually your student ID number and password
 
-2. **Update in Vercel**:
-   - Go to Vercel project settings
-   - Update the `PHPSESSID` environment variable
-   - Redeploy if necessary
+2. **Add to Vercel Environment Variables**:
+   ```
+   SCHOOL_USERNAME = your_student_id_or_username
+   SCHOOL_PASSWORD = your_school_password
+   ```
+
+3. **Benefits**:
+   - Fully automated - no manual session management
+   - System automatically logs in and gets fresh sessions
+   - Much more reliable than manual session IDs
+
+**Option B: Manual Session ID (Fallback)**
+
+1. **Login to School System**:
+   - Go to https://bogazicisehirkolejiobs.com
+   - Log in with your credentials
+   - Navigate to the homework section
+
+2. **Get Session ID from Browser**:
+   - Open Developer Tools (F12 or right-click → Inspect)
+   - Go to "Application" or "Storage" tab
+   - Find "Cookies" for bogazicisehirkolejiobs.com
+   - Copy the `PHPSESSID` value
+
+3. **Add to Vercel**:
+   - Add/update the `PHPSESSID` environment variable
+
+### Step 4: Automatic Session Management
+
+The system includes intelligent 3-tier session management:
+
+**Priority Order:**
+1. **Environment PHPSESSID** - Uses if provided and valid ✅
+2. **Automatic Login** - Authenticates with credentials and gets fresh session 🔐
+3. **Fallback Methods** - Tries to get sessions from public pages 🔄
+
+**Smart Features:**
+- **Login Authentication**: Uses your credentials to get authenticated sessions
+- **Session Validation**: Tests all sessions before using them
+- **Automatic Retry**: Failed requests retry with fresh sessions
+- **Longer Session Life**: Authenticated sessions last 4 hours vs 2 hours for manual ones
+- **Multiple Fallbacks**: Never fails if any method works
 
 ## 🌐 Usage
 
@@ -114,10 +160,10 @@ your-repo/
 - Verify environment variables are set correctly
 - Ensure GitHub token has proper permissions
 
-### Session Expired
-- Update `PHPSESSID` in Vercel environment variables
-- Get new session ID from browser developer tools
-- Redeploy if necessary
+### Session Issues
+- Session management is now automatic
+- Check function logs if homework fetching fails
+- System will automatically retry with fresh sessions
 
 ### GitHub API Errors
 - Check GitHub token permissions

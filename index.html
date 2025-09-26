@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homework Progress Report - Mesut Zahid Bütünay</title>
+    <title>Homework Dashboard - Mesut Zahid Bütünay</title>
     <style>
         * {
             margin: 0;
@@ -13,14 +13,13 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
-            line-height: 1.6;
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
@@ -33,239 +32,185 @@
             color: white;
             padding: 40px 30px;
             text-align: center;
-            position: relative;
-        }
-        
-        .header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
         }
         
         .header h1 {
-            font-size: 2.8em;
+            font-size: 2.5em;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         
         .header p {
-            font-size: 1.3em;
-            opacity: 0.95;
-            margin-bottom: 20px;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .stat-card {
-            background: rgba(255,255,255,0.2);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-        
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .stat-label {
-            font-size: 1.1em;
+            font-size: 1.2em;
             opacity: 0.9;
-        }
-        
-        .progress-bar {
-            background: rgba(255,255,255,0.3);
-            height: 8px;
-            border-radius: 4px;
-            margin-top: 15px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: #48bb78;
-            border-radius: 4px;
-            width: 50.0%;
-            transition: width 0.5s ease;
         }
         
         .content {
             padding: 40px 30px;
         }
         
-        .section-title {
-            font-size: 1.8em;
+        .action-section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .action-title {
+            font-size: 1.4em;
             color: #2d3748;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #4facfe;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         
-        .table-container {
-            overflow-x: auto;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-        }
-        
-        th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 18px 15px;
-            text-align: left;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 0.9em;
-        }
-        
-        td {
-            padding: 15px;
-            border-bottom: 1px solid #e2e8f0;
-            vertical-align: top;
-        }
-        
-        tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-        
-        tr:hover {
-            background-color: #e3f2fd;
-            transform: translateY(-1px);
-            transition: all 0.3s ease;
-        }
-        
-        .status-done {
-            background: linear-gradient(135deg, #48bb78, #38a169);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.85em;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 4px rgba(72, 187, 120, 0.3);
-        }
-        
-        .status-pending {
-            background: linear-gradient(135deg, #ed8936, #dd6b20);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.85em;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 4px rgba(237, 137, 54, 0.3);
-        }
-        
-        .status-empty {
-            background: #e2e8f0;
+        .action-description {
             color: #718096;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 500;
-            font-size: 0.85em;
+            margin-bottom: 20px;
+            line-height: 1.6;
         }
         
-        .homework-id {
-            background: linear-gradient(135deg, #4299e1, #3182ce);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.9em;
-            text-align: center;
-            min-width: 50px;
-        }
-        
-        .teacher-name {
-            font-weight: 600;
-            color: #2d3748;
-        }
-        
-        .lesson-name {
-            background: linear-gradient(135deg, #805ad5, #6b46c1);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.85em;
-            font-weight: 500;
-            text-align: center;
-        }
-        
-        .date-cell {
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-            color: #4a5568;
-            white-space: nowrap;
-        }
-        
-        .description-cell {
-            max-width: 300px;
-            line-height: 1.5;
-            color: #2d3748;
-        }
-        
-        .footer {
-            background: #f7fafc;
-            padding: 30px;
-            text-align: center;
-            color: #718096;
-            border-top: 1px solid #e2e8f0;
-        }
-        
-        .footer p {
-            margin-bottom: 10px;
-        }
-        
-        .legend {
+        .button-group {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
+            gap: 15px;
             flex-wrap: wrap;
         }
         
-        .legend-item {
-            display: flex;
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 16px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(79, 172, 254, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(72, 187, 120, 0.4);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        
+        .status-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: 500;
+        }
+        
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .status-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .csv-editor {
+            margin-top: 30px;
+            padding: 20px;
             background: white;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
         }
         
-        .legend-dot {
-            width: 12px;
-            height: 12px;
+        .csv-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .csv-table th,
+        .csv-table td {
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+        }
+        
+        .csv-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        .csv-table input,
+        .csv-table select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+        }
+        
+        .loading {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3498db;
             border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
         
-        .legend-done { background: #48bb78; }
-        .legend-pending { background: #ed8936; }
-        .legend-empty { background: #e2e8f0; }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
         
         @media (max-width: 768px) {
             .container {
@@ -278,29 +223,23 @@
             }
             
             .header h1 {
-                font-size: 2.2em;
+                font-size: 2em;
             }
             
             .content {
                 padding: 30px 20px;
             }
             
-            .stats-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 15px;
+            .action-section {
+                padding: 20px;
             }
             
-            .stat-number {
-                font-size: 2em;
+            .button-group {
+                flex-direction: column;
             }
             
-            th, td {
-                padding: 12px 8px;
-                font-size: 0.85em;
-            }
-            
-            .description-cell {
-                max-width: 200px;
+            .btn {
+                justify-content: center;
             }
         }
     </style>
@@ -308,52 +247,162 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>📚 Homework Progress Report</h1>
-            <p>Mesut Zahid Bütünay</p>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">8</div>
-                    <div class="stat-label">Total Homework</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">4</div>
-                    <div class="stat-label">Completed</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">4</div>
-                    <div class="stat-label">Pending</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">50.0%</div>
-                    <div class="stat-label">Progress</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill"></div>
-                    </div>
-                </div>
-            </div>
+            <h1>📚 Homework Dashboard</h1>
+            <p>Mesut Zahid Bütünay - Automated Homework Management</p>
         </div>
         
         <div class="content">
-            <h2 class="section-title">📋 Homework Assignments</h2>
-            
-            <div class="legend">
-                <div class="legend-item">
-                    <div class="legend-dot legend-done"></div>
-                    <span>Completed</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-dot legend-pending"></div>
-                    <span>In Progress</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-dot legend-empty"></div>
-                    <span>Not Started</span>
+            <div class="action-section">
+                <h2 class="action-title">
+                    🔄 Fetch New Homework
+                </h2>
+                <p class="action-description">
+                    Fetch the latest homework assignments from the school system. This runs automatically daily at 8:00 AM, but you can also trigger it manually.
+                </p>
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="fetchHomework()" id="fetchBtn">
+                        <span>📥</span> Fetch Homework
+                    </button>
                 </div>
             </div>
             
-            <div class="table-container">
-                <table>
+            <div class="action-section">
+                <h2 class="action-title">
+                    ✏️ Edit Homework Status
+                </h2>
+                <p class="action-description">
+                    View and edit your homework assignments. Mark completed assignments as "Done" or add other status notes.
+                </p>
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="loadCSVData()" id="editBtn">
+                        <span>📝</span> Edit Status
+                    </button>
+                    <button class="btn btn-success hidden" onclick="saveCSVData()" id="saveBtn">
+                        <span>💾</span> Save Changes
+                    </button>
+                </div>
+            </div>
+            
+            <div class="action-section">
+                <h2 class="action-title">
+                    🎨 Generate HTML Report
+                </h2>
+                <p class="action-description">
+                    Generate a beautiful HTML report with your current homework progress and status updates.
+                </p>
+                <div class="button-group">
+                    <button class="btn btn-success" onclick="generateHTML()" id="generateBtn">
+                        <span>📊</span> Generate Report
+                    </button>
+                    <a class="btn btn-secondary" href="#" id="viewReportBtn" target="_blank" style="display: none;">
+                        <span>👁️</span> View Report
+                    </a>
+                </div>
+            </div>
+            
+            <div id="statusMessage"></div>
+            
+            <div id="csvEditor" class="csv-editor hidden">
+                <h3>📋 Edit Homework Status</h3>
+                <div id="csvTable"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let csvData = [];
+        
+        function showMessage(message, type = 'info') {
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.className = `status-message status-${type}`;
+            statusDiv.textContent = message;
+            statusDiv.classList.remove('hidden');
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusDiv.classList.add('hidden');
+                }, 5000);
+            }
+        }
+        
+        function setButtonLoading(buttonId, loading = true) {
+            const btn = document.getElementById(buttonId);
+            if (loading) {
+                btn.disabled = true;
+                btn.innerHTML = `<div class="loading"><div class="spinner"></div><span>Loading...</span></div>`;
+            } else {
+                btn.disabled = false;
+                // Reset to original content based on button
+                const originalContent = {
+                    fetchBtn: '<span>📥</span> Fetch Homework',
+                    editBtn: '<span>📝</span> Edit Status',
+                    generateBtn: '<span>📊</span> Generate Report',
+                    saveBtn: '<span>💾</span> Save Changes'
+                };
+                btn.innerHTML = originalContent[buttonId] || 'Button';
+            }
+        }
+        
+        async function fetchHomework() {
+            setButtonLoading('fetchBtn', true);
+            showMessage('Fetching homework data...', 'info');
+            
+            try {
+                const response = await fetch('/api/fetch_homework', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage(`✅ Success! ${result.message}`, 'success');
+                } else {
+                    showMessage(`❌ Error: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                showMessage(`❌ Error: ${error.message}`, 'error');
+            } finally {
+                setButtonLoading('fetchBtn', false);
+            }
+        }
+        
+        async function loadCSVData() {
+            setButtonLoading('editBtn', true);
+            showMessage('Loading homework data...', 'info');
+            
+            try {
+                const response = await fetch('/api/get_csv');
+                const result = await response.json();
+                
+                if (result.success) {
+                    csvData = result.data;
+                    renderCSVTable();
+                    document.getElementById('csvEditor').classList.remove('hidden');
+                    document.getElementById('saveBtn').classList.remove('hidden');
+                    showMessage('✅ Homework data loaded successfully!', 'success');
+                } else {
+                    showMessage(`❌ Error: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                showMessage(`❌ Error: ${error.message}`, 'error');
+            } finally {
+                setButtonLoading('editBtn', false);
+            }
+        }
+        
+        function renderCSVTable() {
+            const tableDiv = document.getElementById('csvTable');
+            
+            if (csvData.length === 0) {
+                tableDiv.innerHTML = '<p>No homework data available.</p>';
+                return;
+            }
+            
+            let tableHTML = `
+                <table class="csv-table">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -366,88 +415,92 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><div class="homework-id">158</div></td>
-                            <td><span class="status-empty">Not Started</span></td>
-                            <td><div class="teacher-name">MEHMET ÇELİK</div></td>
-                            <td><div class="lesson-name">TÜRKÇE</div></td>
-                            <td><div class="date-cell">2025-09-23</div></td>
-                            <td><div class="date-cell">2025-09-30</div></td>
-                            <td><div class="description-cell">400 tane Atasözü dagittim. Haftaya sali günü sınav yapacağım</div></td>
-                        </tr>
-                        <tr>
-                            <td><div class="homework-id">156</div></td>
-                            <td><span class="status-empty">Not Started</span></td>
-                            <td><div class="teacher-name">BERNA MUTLUERGİL</div></td>
-                            <td><div class="lesson-name">SOSYAL BİL.</div></td>
-                            <td><div class="date-cell">2025-09-23</div></td>
-                            <td><div class="date-cell">2025-09-30</div></td>
-                            <td><div class="description-cell">Nar test yayınları sayfa 20ye kadar yapılacaktır.</div></td>
-                        </tr>
-                        <tr>
-                            <td><div class="homework-id">181</div></td>
-                            <td><span class="status-empty">Not Started</span></td>
-                            <td><div class="teacher-name">RÜMEYSA GÜMÜŞ</div></td>
-                            <td><div class="lesson-name">DİN. KÜL.</div></td>
-                            <td><div class="date-cell">2025-09-26</div></td>
-                            <td><div class="date-cell">2025-09-29</div></td>
-                            <td><div class="description-cell">Nartest kitabı 4. Test yapılacak</div></td>
-                        </tr>
-                        <tr>
-                            <td><div class="homework-id">178</div></td>
-                            <td><span class="status-empty">Not Started</span></td>
-                            <td><div class="teacher-name">HAYRİYE NUR ÇALIŞKAN</div></td>
-                            <td><div class="lesson-name">Y.DİL</div></td>
-                            <td><div class="date-cell">2025-09-26</div></td>
-                            <td><div class="date-cell">2025-09-29</div></td>
-                            <td><div class="description-cell">Hız yayınları testi(Boğaziçi logolu olan) school life konusu ilk 3 test çözülecek.</div></td>
-                        </tr>
-                        <tr>
-                            <td><div class="homework-id">150</div></td>
-                            <td><span class="status-done">Done</span></td>
-                            <td><div class="teacher-name">MEHMET ÇELİK</div></td>
-                            <td><div class="lesson-name">TÜRKÇE</div></td>
-                            <td><div class="date-cell">2025-09-22</div></td>
-                            <td><div class="date-cell">2025-09-29</div></td>
-                            <td><div class="description-cell">Bogazici sarı kitap sayfa 8-19 yapılacak. Konu sözcükte anlam.</div></td>
-                        </tr>
-                        <tr>
-                            <td><div class="homework-id">139</div></td>
-                            <td><span class="status-done">Done</span></td>
-                            <td><div class="teacher-name">İREM AKYOL</div></td>
-                            <td><div class="lesson-name">FEN BİLİMLERİ</div></td>
-                            <td><div class="date-cell">2025-09-19</div></td>
-                            <td><div class="date-cell">2025-09-24</div></td>
-                            <td><div class="description-cell">Nar Test (Mavi - Beyaz Kitap) 9 10 11 12.sayfalar yapılacak. Ödev yapılınca cevap anahtarından kontrol ederek + / - koyalım. Yanlışları düzeltmeyelim sadece - koyalım.</div></td>
-                        </tr>
-                        <tr>
-                            <td><div class="homework-id">141</div></td>
-                            <td><span class="status-done">Done</span></td>
-                            <td><div class="teacher-name">RÜMEYSA GÜMÜŞ</div></td>
-                            <td><div class="lesson-name">DİN. KÜL.</div></td>
-                            <td><div class="date-cell">2025-09-19</div></td>
-                            <td><div class="date-cell">2025-09-22</div></td>
-                            <td><div class="description-cell">Hayırlı akşamlar nar test 1. 2. Ve 3. Testler yapılacak .</div></td>
-                        </tr>
-                        <tr>
-                            <td><div class="homework-id">134</div></td>
-                            <td><span class="status-done">Done</span></td>
-                            <td><div class="teacher-name">İREM AKYOL</div></td>
-                            <td><div class="lesson-name">FEN BİLİMLERİ</div></td>
-                            <td><div class="date-cell">2025-09-17</div></td>
-                            <td><div class="date-cell">2025-09-19</div></td>
-                            <td><div class="description-cell">Boğaziçi Kitabı (Sarı) 8 9 10 ve 11.sayfalar yapılacak. Ödev yapıldıktan sonra cevap anahtarından kontrol edilerek renkli kalem ile + / - koyulacak. Yanlış soruları düzeltmeyelim sadece - koyalım.</div></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+            `;
+            
+            csvData.forEach((row, index) => {
+                tableHTML += `
+                    <tr>
+                        <td>${row.id || ''}</td>
+                        <td>
+                            <select onchange="updateStatus(${index}, this.value)">
+                                <option value="" ${!row.status ? 'selected' : ''}>Not Started</option>
+                                <option value="Done" ${row.status === 'Done' ? 'selected' : ''}>Done</option>
+                                <option value="In Progress" ${row.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+                                <option value="Pending" ${row.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                            </select>
+                        </td>
+                        <td>${row.teaNameSurname || ''}</td>
+                        <td>${row.lesson || ''}</td>
+                        <td>${row.startDate || ''}</td>
+                        <td>${row.endDate || ''}</td>
+                        <td style="max-width: 300px; word-wrap: break-word;">${row.description || ''}</td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += '</tbody></table>';
+            tableDiv.innerHTML = tableHTML;
+        }
         
-        <div class="footer">
-            <p><strong>Report Generated:</strong> 2025-09-26 23:28:58</p>
-            <p>📊 Total: 8 assignments | ✅ Completed: 4 | ⏳ Pending: 4</p>
-            <p>🎯 Keep up the great work! You're 50.0% through your homework!</p>
-        </div>
-    </div>
+        function updateStatus(index, value) {
+            csvData[index].status = value;
+        }
+        
+        async function saveCSVData() {
+            setButtonLoading('saveBtn', true);
+            showMessage('Saving homework data...', 'info');
+            
+            try {
+                const response = await fetch('/api/update_csv', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ data: csvData })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage('✅ Homework data saved successfully!', 'success');
+                } else {
+                    showMessage(`❌ Error: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                showMessage(`❌ Error: ${error.message}`, 'error');
+            } finally {
+                setButtonLoading('saveBtn', false);
+            }
+        }
+        
+        async function generateHTML() {
+            setButtonLoading('generateBtn', true);
+            showMessage('Generating HTML report...', 'info');
+            
+            try {
+                const response = await fetch('/api/generate_html', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage('✅ HTML report generated successfully!', 'success');
+                    const viewBtn = document.getElementById('viewReportBtn');
+                    viewBtn.href = result.url;
+                    viewBtn.style.display = 'inline-flex';
+                } else {
+                    showMessage(`❌ Error: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                showMessage(`❌ Error: ${error.message}`, 'error');
+            } finally {
+                setButtonLoading('generateBtn', false);
+            }
+        }
+    </script>
 </body>
 </html>

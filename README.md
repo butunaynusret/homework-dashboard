@@ -75,13 +75,51 @@ This will create `homework_report.html` with:
 3. **Generate HTML report:** `python3 csv_to_html.py`
 4. **View in browser:** Open `homework_report.html`
 
+## ☁️ Automated Vercel Deployment
+
+For a fully automated solution with web interface and daily automation:
+
+### 🚀 Features
+- **Daily Auto-fetch**: Automatically checks for new homework at 8:00 AM
+- **Web Interface**: Edit homework status from any device
+- **One-Click Reports**: Generate HTML reports with a button click
+- **GitHub Storage**: Persistent data storage in your repository
+- **No Server Maintenance**: Fully serverless on Vercel
+
+### 📱 Web Dashboard
+- View all homework assignments
+- Edit status (Done, In Progress, Pending)
+- Generate beautiful HTML reports
+- Automated daily homework fetching
+
+### 🔧 Setup
+See **[VERCEL_SETUP.md](VERCEL_SETUP.md)** for complete deployment instructions.
+
+Quick setup:
+1. Deploy to Vercel from your GitHub repository
+2. Set environment variables (GitHub token, repo name, session ID)
+3. Access your web dashboard at your Vercel URL
+
 ## Files
 
+### Local Scripts
 - `homework_fetcher.py` - Fetches homework data and updates CSV
 - `csv_to_html.py` - Converts CSV to beautiful HTML report
+
+### Web Application (Vercel)
+- `index.html` - Web dashboard interface
+- `api/fetch_homework.py` - API endpoint for automated homework fetching
+- `api/generate_html.py` - API endpoint for HTML report generation
+- `api/csv_data.py` - API endpoint for CSV data management
+- `vercel.json` - Vercel deployment configuration with cron jobs
+
+### Data Files
 - `homework_report.csv` - Your data with manual status edits
 - `homework_report.html` - Generated visual report
+
+### Configuration
 - `requirements.txt` - Python dependencies
+- `VERCEL_SETUP.md` - Complete deployment guide
 
 ## Notes
 
